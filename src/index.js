@@ -1,14 +1,14 @@
 import useragent from 'useragent'
 import { getSupport } from 'caniuse-api'
 import R from 'ramda'
-import { zipObj } from './utils'
+import { zipObj, parseFeaturesFromSpecs } from './utils'
 
 // TODO: enable more agents
 const AGENT_TO_CANIUSE = {
   'ie': 'ie',
   'edge': 'edge',
   'firefox': 'firefox',
-  'chrome': 'chrome',
+  'Chrome': 'chrome',
   'safari': 'safari',
   'opera': 'opera'
 }
@@ -20,28 +20,46 @@ export default function canIUseMiddleWare (opts = {}) {
 
   const featuresWithSpecs = zipObj(features, availableSupport)
 
-  const featureMap = {}
-
-  R.mapObjIndexed((value, key) => {
-    Object.keys(value).forEach((k) => {
-      featureMap[k] = { [key]: value[k] }
-    })
-  }, featuresWithSpecs)
-
-  console.log(featureMap)
+  const featureMap = parseFeaturesFromSpecs(featuresWithSpecs)
 
   return (req, res, next) => {
+    req.capabilities = {}
+
     const agent = req.headers['user-agent']
 
     if (!agent) {
-      req.capabilities = {}
       return next()
     }
 
     const ua = useragent.lookup(agent)
+
+    if (ua === 'Other') {
+      return next()
+    }
+
+    const { family, major, minor } = ua
+
+    const lookUp = AGENT_TO_CANIUSE[family]
+
+    const version = parseFloat(`${major}.${minor}`)
+
+    const browserCapabilities = featureMap[lookUp]
+
+    req.capabilities = R.map(s => version >= s.y, browserCapabilities)
+
+    next()
   }
 }
 
 canIUseMiddleWare({ features: [
-  'border-radius'
-]})
+  'border-radius',
+  'css3-cursors'
+]})(
+  {
+    headers: {
+      'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+    }
+  },
+  {},
+  () => {}
+)
