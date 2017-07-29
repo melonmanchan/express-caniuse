@@ -1,4 +1,6 @@
 import useragent from 'useragent'
+import { getSupport } from 'caniuse-api'
+import { zipObj } from './utils'
 import R from 'ramda'
 
 // TODO: enable more agents
@@ -14,29 +16,19 @@ const AGENT_TO_CANIUSE = {
 export default function canIUseMiddleWare (opts = {}) {
   const features = opts.features || []
 
-  const canIUseKeys = R.values(AGENT_TO_CANIUSE)
+  const availableSupport = features.map(getSupport)
 
-  const featureMap = canIUseKeys.map((k) => {
-    return { k: {} }
-  })
+  const featuresWithSpecs = zipObj(features, availableSupport)
 
-  const files = features.map(f => `caniuse-db/features-json/${f}.json`)
-
-  const featureJSONS = files.map(f => require(f))
-
-  const justSpecs = featureJSONS.map(R.pick('specs'))
-
-  const featuresWithSpecs = R.toPairs(features, justSpecs)
+  const featureMap = {}
 
   R.mapObjIndexed((value, key) => {
-    const specs = canIUseKeys.map(k => value[k])
-    featureMap[key] = specs
-
-    canIUseKeys.forEach((k) => {
-      const asd = value[k]
-      featureMap[key] = Object.create({}, featureMap[key], asd)
+    Object.keys(value).forEach((k) => {
+      featureMap[k] = { [key]: value[k] }
     })
   }, featuresWithSpecs)
+
+  console.log(featureMap)
 
   return (req, res, next) => {
     const agent = req.headers['user-agent']
@@ -49,3 +41,7 @@ export default function canIUseMiddleWare (opts = {}) {
     const ua = useragent.lookup(agent)
   }
 }
+
+canIUseMiddleWare({ features: [
+  'border-radius'
+]})
