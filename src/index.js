@@ -1,7 +1,7 @@
 import useragent from 'useragent'
 import { getSupport } from 'caniuse-api'
-import { zipObj } from './utils'
 import R from 'ramda'
+import { zipObj } from './utils'
 
 // TODO: enable more agents
 const AGENT_TO_CANIUSE = {
