@@ -1,0 +1,23 @@
+{
+  "name": "express-caniuse",
+  "version": "0.0.1",
+  "description": "Express/Connect middleware for automatically determining browser capabilities",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melonmanchan/express-caniuse.git"
+  },
+  "keywords": [
+    "express",
+    "middleware"
+  ],
+  "author": "Matti Jokitulppo <melonmanchan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/melonmanchan/express-caniuse/issues"
+  },
+  "homepage": "https://github.com/melonmanchan/express-caniuse#readme"
+}
