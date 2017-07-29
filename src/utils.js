@@ -1,5 +1,15 @@
 import R from 'ramda'
 
+// TODO: enable more agents
+const AGENT_TO_CANIUSE_LOOKUP = {
+  'ie': 'ie',
+  'edge': 'edge',
+  'firefox': 'firefox',
+  'Chrome': 'chrome',
+  'safari': 'safari',
+  'opera': 'opera'
+}
+
 export function zipObj (arr1, arr2) {
   const out = {}
 
@@ -20,4 +30,8 @@ export function parseFeaturesFromSpecs (specs) {
   }, specs)
 
   return out
+}
+
+export function matchBrowserToCanIUseKey (key) {
+  return AGENT_TO_CANIUSE_LOOKUP[key]
 }

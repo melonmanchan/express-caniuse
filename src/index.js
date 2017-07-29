@@ -1,17 +1,11 @@
 import useragent from 'useragent'
 import { getSupport } from 'caniuse-api'
 import R from 'ramda'
-import { zipObj, parseFeaturesFromSpecs } from './utils'
-
-// TODO: enable more agents
-const AGENT_TO_CANIUSE = {
-  'ie': 'ie',
-  'edge': 'edge',
-  'firefox': 'firefox',
-  'Chrome': 'chrome',
-  'safari': 'safari',
-  'opera': 'opera'
-}
+import {
+  zipObj,
+  parseFeaturesFromSpecs,
+  matchBrowserToCanIUseKey
+} from './utils'
 
 export default function canIUseMiddleWare (opts = {}) {
   const features = opts.features || []
@@ -39,7 +33,7 @@ export default function canIUseMiddleWare (opts = {}) {
 
     const { family, major, minor } = ua
 
-    const lookUp = AGENT_TO_CANIUSE[family]
+    const lookUp = matchBrowserToCanIUseKey(family)
 
     const version = parseFloat(`${major}.${minor}`)
 
