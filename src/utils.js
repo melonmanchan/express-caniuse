@@ -2,12 +2,20 @@ import R from 'ramda'
 
 // TODO: enable more agents
 const AGENT_TO_CANIUSE_LOOKUP = {
-  'ie': 'ie',
-  'edge': 'edge',
-  'firefox': 'firefox',
+  'Android': 'android',
+  'BlackBerry WebKit': 'bb',
+  'Chrome Mobile': 'and_chr',
   'Chrome': 'chrome',
-  'safari': 'safari',
-  'opera': 'opera'
+  'Edge': 'edge',
+  'Firefox Mobile': 'and_ff',
+  'Firefox': 'firefox',
+  'IE Mobile': 'ie_mob',
+  'IE': 'ie',
+  'Mobile Safari': 'ios_saf',
+  'Opera Mini': 'op_mini',
+  'Opera Mobile': 'op_mob',
+  'Opera': 'opera',
+  'Safari': 'safari'
 }
 
 export function zipObj (arr1, arr2) {

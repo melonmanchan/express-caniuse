@@ -19,7 +19,7 @@ export default function canIUseMiddleWare (opts = {}) {
   return (req, res, next) => {
     req.capabilities = {}
 
-    const agent = req.headers['user-agent']
+    const agent = req.headers['user-agent'] || req.headers['x-user-agent']
 
     if (!agent) {
       return next()
@@ -34,6 +34,10 @@ export default function canIUseMiddleWare (opts = {}) {
     const { family, major, minor } = ua
 
     const lookUp = matchBrowserToCanIUseKey(family)
+
+    if (!lookUp) {
+      return next()
+    }
 
     const version = parseFloat(`${major}.${minor}`)
 
@@ -51,7 +55,7 @@ canIUseMiddleWare({ features: [
 ]})(
   {
     headers: {
-      'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+      'user-agent': 'Mozilla/5.0 (Android 4.4; Mobile; rv:41.0) Gecko/41.0 Firefox/41.0'
     }
   },
   {},
