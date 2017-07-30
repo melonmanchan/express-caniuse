@@ -1,6 +1,5 @@
 import R from 'ramda'
 
-// TODO: enable more agents
 const AGENT_TO_CANIUSE_LOOKUP = {
   'Android': 'android',
   'BlackBerry WebKit': 'bb',
@@ -28,7 +27,7 @@ export function zipObj (keys = [], values = []) {
   return out
 }
 
-export function parseFeaturesFromSpecs (specs) {
+export function parseFeaturesFromSpecs (specs = {}) {
   const out = {}
 
   R.mapObjIndexed((value, key) => {
