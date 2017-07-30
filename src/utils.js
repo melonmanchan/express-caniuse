@@ -18,11 +18,11 @@ const AGENT_TO_CANIUSE_LOOKUP = {
   'Safari': 'safari'
 }
 
-export function zipObj (arr1, arr2) {
+export function zipObj (keys = [], values = []) {
   const out = {}
 
-  for (let i = 0; i < arr1.length; i++) {
-    out[arr1[i]] = arr2[i]
+  for (let i = 0; i < keys.length; i++) {
+    out[keys[i]] = values[i]
   }
 
   return out
