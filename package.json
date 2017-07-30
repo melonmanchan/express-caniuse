@@ -1,6 +1,6 @@
 {
   "name": "express-caniuse",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Express/Connect middleware for automatically determining browser capabilities",
   "main": "dist/index.js",
   "scripts": {
