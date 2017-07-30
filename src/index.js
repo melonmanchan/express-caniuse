@@ -7,7 +7,7 @@ import {
   matchBrowserToCanIUseKey
 } from './utils'
 
-function canIUseMiddleWare (opts = {}) {
+function canIUseMiddleware (opts = {}) {
   const features = opts.features || []
 
   const availableSupport = features.map(getSupport)
@@ -49,4 +49,4 @@ function canIUseMiddleWare (opts = {}) {
   }
 }
 
-module.exports = canIUseMiddleWare
+module.exports = canIUseMiddleware
