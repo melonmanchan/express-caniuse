@@ -1,6 +1,6 @@
 {
   "name": "express-caniuse",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Express/Connect middleware for automatically determining browser capabilities",
   "main": "dist/index.js",
   "scripts": {
@@ -15,6 +15,8 @@
   },
   "keywords": [
     "express",
+    "connect",
+    "caniuse",
     "middleware"
   ],
   "author": "Matti Jokitulppo <melonmanchan@gmail.com>",

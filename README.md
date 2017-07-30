@@ -32,6 +32,7 @@ app.use(canIUseMiddleware({
 }));
 
 app.get('hello', function (req, res, next) {
+  // Tested on Chrome 59.0 on OSX
   console.log(req.capabilities)
   // {
   //  'addeventlistener': true,
