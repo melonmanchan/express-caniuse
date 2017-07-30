@@ -1,7 +1,8 @@
 import assert from 'assert'
 
 import {
-  zipObj
+  zipObj,
+  matchBrowserToCanIUseKey
 } from '../src/utils'
 
 describe('utils', function () {
@@ -32,6 +33,30 @@ describe('utils', function () {
       const obj = zipObj(keys, values)
 
       assert.deepEqual({ a: 1, b: 2 }, obj)
+    })
+  })
+
+  describe('matchBrowserToCanIUseKey', function () {
+    it('should match an user agent to CanIUse key correctly', () => {
+      assert.equal(matchBrowserToCanIUseKey('Android'), 'android')
+      assert.equal(matchBrowserToCanIUseKey('BlackBerry WebKit'), 'bb')
+      assert.equal(matchBrowserToCanIUseKey('Chrome Mobile'), 'and_chr')
+      assert.equal(matchBrowserToCanIUseKey('Chrome'), 'chrome')
+      assert.equal(matchBrowserToCanIUseKey('Edge'), 'edge')
+      assert.equal(matchBrowserToCanIUseKey('Firefox Mobile'), 'and_ff')
+      assert.equal(matchBrowserToCanIUseKey('Firefox'), 'firefox')
+      assert.equal(matchBrowserToCanIUseKey('IE Mobile'), 'ie_mob')
+      assert.equal(matchBrowserToCanIUseKey('IE'), 'ie')
+      assert.equal(matchBrowserToCanIUseKey('Mobile Safari'), 'ios_saf')
+      assert.equal(matchBrowserToCanIUseKey('Opera Mini'), 'op_mini')
+      assert.equal(matchBrowserToCanIUseKey('Opera Mobile'), 'op_mob')
+      assert.equal(matchBrowserToCanIUseKey('Opera'), 'opera')
+      assert.equal(matchBrowserToCanIUseKey('Safari'), 'safari')
+    })
+
+    it('should fail correctly on undefined key', () => {
+      assert.equal(matchBrowserToCanIUseKey(), undefined)
+      assert.equal(matchBrowserToCanIUseKey('Some non-existant browser'), undefined)
     })
   })
 })
