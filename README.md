@@ -42,8 +42,8 @@ app.get('hello', function (req, res, next) {
 
 ```
 
-If the locale could not be determined or the user-agent header was missing,
-`req.capabilities` will be an empty object.
+If the browser could not be determined due to missing/unknown user-agent
+header, `req.capabilities` will be an empty object.
 
 ## License
 
