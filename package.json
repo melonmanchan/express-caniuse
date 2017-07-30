@@ -4,6 +4,7 @@
   "description": "Express/Connect middleware for automatically determining browser capabilities",
   "main": "dist/index.js",
   "scripts": {
+    "prepublish": "npm run lint; npm test; npm run build",
     "test": "mocha --compilers js:babel-core/register test/*.js",
     "lint": "eslint src/**/*.js, test/**/*.js",
     "build": "rimraf dist; babel src --out-dir dist"
